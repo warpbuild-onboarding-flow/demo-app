@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          echo "Running on $(uname -m) with $(nproc) CPUs"
+          sleep 20
+
+  test:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test shard ${{ matrix.shard }}
+        run: |
+          echo "Shard ${{ matrix.shard }}"
+          sleep 15
+
+  arm:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Check architecture
+        run: uname -m
