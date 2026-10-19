@@ -1,0 +1,18 @@
+name: Reusable build
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        type: string
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build ${{ inputs.target }}
+        run: |
+          echo "Building ${{ inputs.target }} with $(nproc) CPUs"
+          sleep 10

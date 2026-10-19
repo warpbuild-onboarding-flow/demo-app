@@ -1,0 +1,17 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint
+        run: |
+          echo "Linting on $(uname -m) with $(nproc) CPUs"
+          sleep 10
